@@ -21,6 +21,8 @@ final class ViewController: UIViewController {
         latitudinalMeters: 10000,
         longitudinalMeters: 10000
     )
+    private let arrowImage = UIImage(systemName: "arrow.up.left")
+    private let arrowImageView = UIImageView()
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,6 +37,7 @@ final class ViewController: UIViewController {
     // MARK: - API
     // MARK: - Setups
     private func setupUI() {
+        arrowImageView.image = arrowImage
         map.setRegion(region, animated: true)
         
         let point = MKPointAnnotation()
@@ -46,11 +49,16 @@ final class ViewController: UIViewController {
     
     private func addSubviews() {
         view.addSubview(map)
+        map.addSubview(arrowImageView)
     }
     
     private func addConstraints() {
         map.snp.makeConstraints { make in
             make.edges.equalToSuperview()
+        }
+        
+        arrowImageView.snp.makeConstraints { make in
+            make.center.equalToSuperview()
         }
     }
     // MARK: - Helpers
@@ -62,12 +70,15 @@ final class ViewController: UIViewController {
                 longitudinalMeters: 10000
             )
             map.setRegion(region, animated: true)
-
         }
     }
 
     @objc private func getWeather() {
-        
+            NetworkManager.getWeather(coordinates: map.centerCoordinate) { weather in
+                let alert = UIAlertController(title: "Weather", message: "Temp: \(weather.main?.temp ?? 0) F \nHumidity: \(weather.main?.humidity ?? 0) \nPressure: \(weather.main?.pressure ?? 0)", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.present(alert, animated: true)
+            }
     }
 }
 
