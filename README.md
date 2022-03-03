@@ -8,5 +8,5 @@
     - [Alamofire](https://github.com/Alamofire/Alamofire)
     
 ## Screenshots
-! [WeatherMap main screen] (/Screenshots/WeatherMapMain.png)
-! [WeatherMap alert screen] (/Screenshots/WeatherMapAlert.png)
+! [WeatherMap main screen](/Screenshots/WeatherMapMain.png)  
+! [WeatherMap alert screen](/Screenshots/WeatherMapAlert.png)
